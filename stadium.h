@@ -19,7 +19,7 @@ typedef struct {
 typedef struct {
     size_t end;
     Stand stands[STADIUM_MAX_STANDS];
-    char data[STADIUM_STAND_CAPACITY*STADIUM_MAX_STANDS];
+    unsigned char data[STADIUM_STAND_CAPACITY*STADIUM_MAX_STANDS];
 } Stadium;
 
 void* stadium_alloc(Stadium* stadium, size_t size);
@@ -59,7 +59,7 @@ void stadium_free(Stadium* stadium, void* ptr, size_t size)
 {
     assert(ptr >= (void*) stadium->data);
 
-    size_t stand = (int) ((char*) ptr - stadium->data) / STADIUM_STAND_CAPACITY;
+    size_t stand = (int) ((unsigned char*) ptr - stadium->data) / STADIUM_STAND_CAPACITY;
     assert(stadium->stands[stand].allocated >= size);
 
     stadium->stands[stand].allocated -= size;
